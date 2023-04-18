@@ -1,1 +1,2 @@
 Kulang Randomizer function for choosing which floor will the elevators go to
+Kulang delay for showing when the elevators go down (kailangan print out for what floor that the elevator is at)
