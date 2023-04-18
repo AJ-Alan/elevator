@@ -1,0 +1,1 @@
+Kulang Randomizer function for choosing which floor will the elevators go to
