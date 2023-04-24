@@ -49,7 +49,7 @@ public class elevator {
 
             do {
                 System.out.println("Pick from which floor? 1 - 7?\n");
-                character = scan.next().charAt(0);
+                character = scan.nextInt();
                 if (character < 1) {
                     System.out.println("Number is too low!\n Enter Again !!!\n");
                     contRandMan = 1;
