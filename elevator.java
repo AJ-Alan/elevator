@@ -28,34 +28,77 @@ public class elevator {
             // System.out.println("Looped!");
             contStart = 1;
             
-            // do {
-            //     System.out.println("Do you want to manually place the elevators or make it random? R or M?\n");
-            //     doYouWant = scan.next().charAt(0);
-            //     if (doYouWant == 'R' || doYouWant =='r') {
-            //         System.out.println("Random!\n");
-            //         contRandMan = 0;
-            //     }
-            //     else if (doYouWant == 'M' || doYouWant =='m') {
-            //         System.out.println("Manual!\n");
-            //         contRandMan = 0;
-            //     }
-            //     else {
-            //         contRandMan = 1;
-            //         System.out.println("Please choose between R(andom) or M(anual) !\n");
-            //     }
-            // } while (contRandMan == 1);
+            do {
+                System.out.println("Do you want to manually place the elevators or make it random? R or M?\n");
+                doYouWant = scan.next().charAt(0);
+                if (doYouWant == 'R' || doYouWant =='r') {
+                    System.out.println("Random!\n");
+                    contRandMan = 0;
+                }
+                else if (doYouWant == 'M' || doYouWant =='m') {
+                    System.out.println("Manual!\n");
+                    contRandMan = 0;
+                }
+                else {
+                    contRandMan = 1;
+                    System.out.println("Please choose between R(andom) or M(anual) !\n");
+                }
+            } while (contRandMan == 1);
 
             //function() for randomizing
 
+            //RANDOMIZER//
+            if (doYouWant == 'R' || doYouWant =='r') {
+            int min = 1; // Minimum value of range
+            int max = 7; // Maximum value of range
+            elevator1 = (int)Math.floor(Math.random() * (max - min + 1) + min);
+            elevator2 = (int)Math.floor(Math.random() * (max - min + 1) + min);
+            }
+
+            else if (doYouWant == 'M' || doYouWant =='m') {
+                do {
+                    System.out.println("Which floor will be ELEVATOR 1?? 1 - 7?\n");
+                    elevator1 = scan.nextInt();
+                    if (elevator1 < 1) {
+                        System.out.println("Number is too low!\nEnter Again !!!\n");
+                        contRandMan = 1;
+                    }
+                    else if (elevator1 > 7) {
+                        System.out.println("Number is too high!\nEnter Again !!!\n");
+                        contRandMan = 1;
+                    }
+                    else {
+                        contRandMan = 0;
+                        System.out.println("ELEVATOR 1 currently at floor level: " + elevator1 + "\n");
+                    }
+                } while (contRandMan == 1);
+                do {
+                    System.out.println("Which floor will be ELEVATOR 2?? 1 - 7?\n");
+                    elevator2 = scan.nextInt();
+                    if (elevator2 < 1) {
+                        System.out.println("Number is too low!\nEnter Again !!!\n");
+                        contRandMan = 1;
+                    }
+                    else if (elevator2 > 7) {
+                        System.out.println("Number is too high!\nEnter Again !!!\n");
+                        contRandMan = 1;
+                    }
+                    else {
+                        contRandMan = 0;
+                        System.out.println("ELEVATOR 2 currently at floor level: " + elevator2 + "\n");
+                    }
+                } while (contRandMan == 1);
+            }
+
             do {
-                System.out.println("Pick from which floor? 1 - 7?\n");
+                System.out.println("Which floor will YOU be at? 1 - 7?\n");
                 character = scan.nextInt();
                 if (character < 1) {
-                    System.out.println("Number is too low!\n Enter Again !!!\n");
+                    System.out.println("Number is too low!\nEnter Again !!!\n");
                     contRandMan = 1;
                 }
                 else if (character > 7) {
-                    System.out.println("Number is too high!\n Enter Again !!!\n");
+                    System.out.println("Number is too high!\nEnter Again !!!\n");
                     contRandMan = 1;
                 }
                 else {
@@ -64,8 +107,8 @@ public class elevator {
                 }
             } while (contRandMan == 1);
 
-            System.out.println("\n\nLeft Elevator Floor: " + elevator1);
-            System.out.println("Right Elevator Floor: " + elevator2);
+            System.out.println("\n\nElevator 1 Floor: " + elevator1 + "   ||   Elevator 2 Floor: " + elevator2);
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("YOUR Elevator Floor: " + character + "\n\n");
 
             do {
@@ -118,40 +161,62 @@ public class elevator {
     
             //elevator delay
             int AbsFloorDiff = ReturnAbsDifference(character, elevator1, elevator2);
-            Delay(2000 * AbsFloorDiff); //It takes 2 seconds to travel in each floor.
+            // System.out.println("Current absFloorDiff is: " + AbsFloorDiff);
+
+            //insert Delay()()()()();
+            int elevator1Checker = elevator1;
+            int elevator2Checker = elevator2;
+            for (int eleNum = 0; eleNum<=AbsFloorDiff; eleNum++) {
+                //It takes 2 seconds to travel in each floor.
+                if (ElevatorLocation==1 || ElevatorLocation==3) {
+                    Delay(2000); 
+                    System.out.println("elevator 2: " + elevator2Checker + "... ");
+                    if (elevator2>=character){elevator2Checker--;}
+                    else if (elevator2<=character){elevator2Checker++;}
+                }
+                else if (ElevatorLocation==2) {
+                    Delay(2000); 
+                    System.out.println("elevator 1: " + elevator1Checker + "... ");
+                    elevator1Checker--;
+                    if (elevator1>=character){elevator1Checker--;}
+                    else if (elevator1<=character){elevator1Checker++;}
+                }
+            }
+
+            // Delay(2000, AbsFloorDiff);
     
             //pass the character level to the elevator going up
-            if (ElevatorLocation==1)
-            {
-                elevator2 = character;
-                System.out.println("elevator 2: " + elevator2);
-            }
-            else if (ElevatorLocation==2)
-            {
-                elevator1 = character;
-                System.out.println("elevator 1: " + elevator1);
-            }
-            else if(ElevatorLocation==3)
-            {
-                elevator2 = character;
-                System.out.println("elevator 2: " + elevator2);
-            }
+            // if (ElevatorLocation==1) // Right
+            // {
+            //     elevator2 = character;
+            //     System.out.println("elevator 2: " + elevator2);
+            // }
+            // else if (ElevatorLocation==2) //Left
+            // {
+            //     elevator1 = character;
+            //     System.out.println("elevator 1: " + elevator1);
+            // }
+            // else if(ElevatorLocation==3)
+            // {
+            //     elevator2 = character;
+            //     System.out.println("elevator 2: " + elevator2);
+            // }
             
             //opening door , tell what the floor the elevator is in now.
-            System.out.print("Elevator 1: " + elevator1);
-            System.out.println(" || Elevator 2: " + elevator2);
+            System.out.println("CURRENT LOCATION OF THE ELEVATORS");
+            System.out.println("Elevator 1: " + elevator1 + " || Elevator 2: " + elevator2);
     
             //delayy 1 second
             Delay(1000); //it takes 1 second for the door to open
     
             //door opened
-            System.out.println("Open sesame");
+            System.out.println("OPENING...");
     
             //delay 1 second
             Delay(1000); //it takes 1 second for the door to close
     
             //door closed
-            System.out.println("Door closed");
+            System.out.println("DOOR CLOSED");
 
         }
         else if (doYouWant == 'N' || doYouWant =='n') {contStart = 0;}
@@ -253,11 +318,11 @@ public class elevator {
             int location = charlvl - elev2; //to check if elevator is above or below you
             if (location > 0)
             {
-                System.out.println("ELEVATOR 2 IS GOING UP");
+                System.out.println("ELEVATOR 2 IS GOING UP...");
             }
             else if (location<0)
             {
-                System.out.println("ELEVATOR 2 IS GOING DOWN");
+                System.out.println("ELEVATOR 2 IS GOING DOWN...");
             }
         }
         else if (x == 2) //elevator 1 is nearer
@@ -265,11 +330,11 @@ public class elevator {
             int location = charlvl - elev1; //to check if elevator is above or below you
             if (location > 0)
             {
-                System.out.println("ELEVATOR 1 IS GOING UP");
+                System.out.println("ELEVATOR 1 IS GOING UP...");
             }
             else if (location<0)
             {
-                System.out.println("ELEVATOR 1 IS GOING DOWN");
+                System.out.println("ELEVATOR 1 IS GOING DOWN...");
             }
         }
         else if (x == 3) // elevators are both on the same floor
@@ -277,12 +342,30 @@ public class elevator {
             int location = charlvl - elev2; //to check if elevator is above or below you
             if (location > 0)
             {
-                System.out.println("ELEVATOR 2 IS GOING UP");
+                System.out.println("ELEVATOR 2 IS GOING UP...");
             }
             else if (location<0)
             {
-                System.out.println("ELEVATOR 2 IS GOING DOWN");
+                System.out.println("ELEVATOR 2 IS GOING DOWN...");
             }
         }
-}
+    }
+
+    // public static void Delay(int x, int floordiff) //waiting for few seconds
+    // {
+        
+    //     for (int y = 1; y<=floordiff; y++)
+    //     {
+    //         System.out.println(y + "... ");
+    //         try
+    //         {
+    //             Thread.sleep(x);
+    //         }
+    //         catch (InterruptedException ex)
+    //         {
+    //             ex.printStackTrace();
+    //         }
+    //     }
+    //     System.out.println();
+    // }
 }
