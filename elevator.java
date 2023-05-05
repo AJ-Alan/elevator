@@ -234,7 +234,8 @@ public static void main(String args[]) {
                 } 
 
                 delay(1000);
-                deleteLine(5);
+                deleteLine(9);
+                topdesign(elevator1, elevator2, character);
     
                 rightElevOpening();
 
